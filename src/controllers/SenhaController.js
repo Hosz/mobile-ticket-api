@@ -1,4 +1,5 @@
 import Senha from '../models/Senha.js';
+import { Op } from 'sequelize';
 
 export const emitir = async (req, res) => {
   try {
@@ -8,20 +9,20 @@ export const emitir = async (req, res) => {
     const yy = String(agora.getFullYear()).slice(-2);
     const mm = String(agora.getMonth() + 1).padStart(2, '0');
     const dd = String(agora.getDate()).padStart(2, '0');
-
-    // Conta quantas senhas do mesmo tipo foram emitidas hoje
     const hoje = `${yy}${mm}${dd}`;
+
     const quantidade = await Senha.count({
-      where: { tipo, codigo: { [sequelize.Op.like]: `${hoje}%` } }
+      where: { tipo, numeracao: { [Op.like]: `${hoje}%` } }
     });
 
     const sq = String(quantidade + 1).padStart(2, '0');
-    const codigo = `${hoje}-${tipo}${sq}`;
+    const numeracao = `${hoje}-${tipo}${sq}`;
 
-    const senha = await Senha.create({ codigo, tipo, sequencia: quantidade + 1 });
+    await Senha.create({ numeracao, tipo });
 
-    res.status(201).json(senha);
+    res.status(201).json({ codigo: numeracao, tipo, status: 'AGUARDANDO' });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ erro: 'Erro ao emitir senha.' });
   }
 };
