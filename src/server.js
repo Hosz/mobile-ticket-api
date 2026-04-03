@@ -4,9 +4,10 @@ import cors from 'cors';
 import { sequelize } from '../mysql/src/instances/mysql.js';
 import guicheRoutes from './routes/guicheRoutes.js';
 import senhaRoutes from './routes/senhaRoutes.js';
+import Guiche from './models/Guiche.js';
+import Senha from './models/Senha.js';
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
@@ -21,6 +22,8 @@ async function main() {
   try {
     await sequelize.authenticate();
     console.log('Banco conectado!');
+    await sequelize.sync({ alter: true });
+    console.log('Tabelas sincronizadas!');
     app.listen(3000, () => {
       console.log('Servidor rodando na porta 3000');
     });
