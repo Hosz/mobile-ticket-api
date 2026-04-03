@@ -19,7 +19,7 @@ CREATE DATABASE controle_de_atendimento;
 Crie um arquivo .env na raiz do projeto com o seguinte conteúdo:
 MYSQL_DB=controle_de_atendimento
 MYSQL_USER=root
-MYSQL_PASSWORD=sua_senha_aqui
+MYSQL_PASSWORD=sua_senha_aqui(SE NAO TIVER SENHA DEIXE O "MYSQL_PASSWORD=" ASSIM )
 MYSQL_PORT=3306
 PORT=3000
 
