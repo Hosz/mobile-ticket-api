@@ -1,7 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import { sequelize } from '../mysql/src/instances/mysql.js';
+import { sequelize } from './config/database.js';
+import atendimentoRoutes from './routes/atendimentoRoutes.js';
 import guicheRoutes from './routes/guicheRoutes.js';
 import senhaRoutes from './routes/senhaRoutes.js';
 import Guiche from './models/Guiche.js';
@@ -17,6 +18,7 @@ app.get('/health', (req, res) => {
 
 app.use('/guiches', guicheRoutes);
 app.use('/senhas', senhaRoutes);
+app.use('/atendimentos', atendimentoRoutes);
 
 async function main() {
   try {

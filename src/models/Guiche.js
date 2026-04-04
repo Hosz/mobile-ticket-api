@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../../mysql/src/instances/mysql.js';
+import { sequelize } from '../config/database.js';
 
 const Guiche = sequelize.define('Guiche', {
   id: {

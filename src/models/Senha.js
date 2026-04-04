@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../../mysql/src/instances/mysql.js';
+import { sequelize } from '../config/database.js';
 
 const Senha = sequelize.define('senha', {
   numeracao: {
@@ -12,8 +12,15 @@ const Senha = sequelize.define('senha', {
     allowNull: false
   },
   status: {
-    type: DataTypes.ENUM('AGUARDANDO', 'CHAMADA', 'EM_ATENDIMENTO', 'ATENDIDA', 'NAO_COMPARECEU', 'DESCARTADA'),
-    defaultValue: 'AGUARDANDO'
+    type: DataTypes.ENUM(
+      'AGUARDANDO',
+      'CHAMADA',
+      'EM_ATENDIMENTO',
+      'ATENDIDA',
+      'NAO_COMPARECEU',
+      'DESCARTADA'
+    ),
+    defaultValue: 'AGUARDANDO',
   },
   emitida_em: {
     type: DataTypes.DATE,
@@ -21,7 +28,7 @@ const Senha = sequelize.define('senha', {
   },
   chamada_em: {
     type: DataTypes.DATE,
-    allowNull: true
+    allowNull: true,
   },
   atendida_em: {
     type: DataTypes.DATE,
@@ -31,7 +38,8 @@ const Senha = sequelize.define('senha', {
     type: DataTypes.INTEGER,
     allowNull: true
   }
-}, {
+}, 
+{
   tableName: 'senhas',
   timestamps: true,
   createdAt: 'created_at',
